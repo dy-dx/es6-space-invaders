@@ -60,6 +60,7 @@ gulp.task('watch', ['sass', 'jade'], function() {
 
 gulp.task('build', ['sass', 'jade'], function () {
   var bundler = browserify('./src/js/index.js');
+  bundler.transform(babelify, {presets: ["es2015", "react"]});
   return bundle(bundler);
 });
 
