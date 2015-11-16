@@ -11,7 +11,8 @@ export default class Player extends Sprite {
       height: 20,
       zIndex: 100,
       bgColor: 'blue',
-      speed: 200
+      speed: 200,
+      health: 1,
     };
 
     super(parent, attrs);

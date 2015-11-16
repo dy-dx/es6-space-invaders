@@ -8,7 +8,8 @@ export default class Enemy extends Sprite {
       width: 20,
       height: 20,
       zIndex: 100,
-      bgColor: 'red'
+      bgColor: 'red',
+      health: 1,
     };
 
     super(parent, attrs);
@@ -16,5 +17,8 @@ export default class Enemy extends Sprite {
 
   update(dt) {
     super.update(dt);
+    if (this.health <= 0) {
+      this.destroy();
+    }
   }
 }

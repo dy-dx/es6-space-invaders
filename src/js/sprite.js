@@ -12,6 +12,7 @@ export default class Sprite {
     this.width = attrs.width || 10;
     this.height = attrs.height || 10;
     this.bgColor = attrs.bgColor || 'magenta';
+    this.health = attrs.health || 0;
     this.zIndex = attrs.zIndex || 1;
 
     this.speed = attrs.speed || 0;
@@ -28,6 +29,10 @@ export default class Sprite {
       'background-color': this.bgColor,
       'z-index': this.zIndex,
     });
+  }
+
+  takeDamage(damage) {
+    this.health -= damage;
   }
 
   setPosition(x, y) {
