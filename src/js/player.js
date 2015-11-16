@@ -1,5 +1,6 @@
 import Sprite from './sprite';
 import Input from './input';
+import Projectile from './projectile';
 
 export default class Player extends Sprite {
   constructor(parent, x, y) {
@@ -16,6 +17,9 @@ export default class Player extends Sprite {
     super(parent, attrs);
 
     this.input = new Input();
+
+    this.fireRate = 150; // ms between shots
+    this.msSinceFired = Infinity;
   }
 
   move(dt, direction) {
@@ -31,7 +35,14 @@ export default class Player extends Sprite {
   }
 
   shoot() {
-    console.error('not implemented!');
+    if (this.msSinceFired >= this.fireRate) {
+      this.spawnBullet();
+      this.msSinceFired = 0;
+    }
+  }
+
+  spawnBullet() {
+    this.parent.children.push(new Projectile(this.parent, this.x, this.y + this.height, 0, 500, 1));
   }
 
   update(dt) {
@@ -43,6 +54,8 @@ export default class Player extends Sprite {
     if (this.input.pressed.space) {
       this.shoot();
     }
+
+    this.msSinceFired += dt*1000;
 
     super.update(dt);
   }

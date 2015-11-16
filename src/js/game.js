@@ -29,8 +29,14 @@ export default class Game {
   }
 
   update(dt) {
-    this.children.forEach(sprite => {
-      sprite.update(dt);
-    });
+    // iterate backwards so we can splice
+    for (let i = this.children.length - 1; i >= 0; i--) {
+      let sprite = this.children[i];
+      if (sprite.alive) {
+        sprite.update(dt);
+      } else {
+        this.children.splice(i, 1);
+      }
+    }
   }
 }

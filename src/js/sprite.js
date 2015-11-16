@@ -2,6 +2,7 @@ import $ from 'jquery';
 
 export default class Sprite {
   constructor(parent, attrs) {
+    this.alive = true;
     this.parent = parent;
     this.children = [];
     this.$element = $('<div>').addClass('sprite');
@@ -16,6 +17,7 @@ export default class Sprite {
     this.speed = attrs.speed || 0;
 
     parent.$element.append(this.$element);
+    this.setPosition(this.x, this.y);
     this.draw();
   }
 
@@ -37,13 +39,23 @@ export default class Sprite {
 
   update(dt) {
     this.setPosition(this.x, this.y);
-    this.children.forEach(sprite => {
-      sprite.update(dt);
-    });
+    // this.children.forEach(sprite => {
+    //   sprite.update(dt);
+    // });
+    // iterate backwards so we can splice
+    for (let i = this.children.length - 1; i >= 0; i--) {
+      let sprite = this.children[i];
+      if (sprite.alive) {
+        sprite.update(dt);
+      } else {
+        this.children.splice(i, 1);
+      }
+    }
   }
 
   destroy() {
     this.$element.remove();
+    this.alive = false;
     this.parent = null;
     this.children.forEach(sprite => {
       sprite.destroy();
