@@ -3,3 +3,15 @@
 html, body {
   height: 100%;
 }
+
+#main {
+  background-color: black;
+  position: relative;
+}
+
+.sprite {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
