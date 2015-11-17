@@ -15,7 +15,9 @@ export default class Sprite {
     this.health = attrs.health || 0;
     this.zIndex = attrs.zIndex || 1;
 
+    this.velocity = attrs.velocity || {x: 0, y: 0};
     this.speed = attrs.speed || 0;
+    this.lifetime = attrs.lifetime || Infinity;
 
     parent.$element.append(this.$element);
     this.setPosition(this.x, this.y);
@@ -42,11 +44,35 @@ export default class Sprite {
     });
   }
 
+  overlaps(sprite) {
+    if (this === sprite) { return false; }
+
+    let bounds = this.$element.offset();
+    bounds.right = bounds.left + this.width;
+    bounds.bottom = bounds.top + this.height;
+
+    let compare = sprite.$element.offset();
+    compare.right = compare.left + sprite.width;
+    compare.bottom = compare.top + sprite.height;
+
+    return !(
+      compare.right < bounds.left ||
+      compare.left > bounds.right ||
+      compare.bottom < bounds.top ||
+      compare.top > bounds.bottom
+    );
+  }
+
   update(dt) {
+    if (this.lifetime <= 0) {
+      return this.destroy();
+    }
+    this.y += this.velocity.y * dt;
+    this.x += this.velocity.x * dt;
+    this.lifetime -= dt;
+
     this.setPosition(this.x, this.y);
-    // this.children.forEach(sprite => {
-    //   sprite.update(dt);
-    // });
+
     // iterate backwards so we can splice
     for (let i = this.children.length - 1; i >= 0; i--) {
       let sprite = this.children[i];

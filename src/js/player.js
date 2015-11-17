@@ -25,14 +25,19 @@ export default class Player extends Sprite {
 
   move(dt, direction) {
     if (direction === 'left') {
-      this.x -= this.speed * dt;
+      this.velocity.x = -this.speed;
     } else if (direction === 'right') {
-      this.x += this.speed * dt;
+      this.velocity.x = this.speed;
     } else if (direction === 'up') {
-      this.y += this.speed * dt;
+      this.velocity.y = this.speed;
     } else if (direction === 'down') {
-      this.y -= this.speed * dt;
+      this.velocity.y = -this.speed;
     }
+  }
+
+  stop() {
+    this.velocity.x = 0;
+    this.velocity.y = 0;
   }
 
   shoot() {
@@ -51,8 +56,11 @@ export default class Player extends Sprite {
       this.move(dt, 'left');
     } else if (this.input.pressed.right) {
       this.move(dt, 'right');
+    } else {
+      this.stop();
     }
-    if (this.input.pressed.space) {
+
+    if (this.input.pressed.space || this.input.pressed.up) {
       this.shoot();
     }
 
