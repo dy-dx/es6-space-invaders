@@ -23,16 +23,16 @@ export default class Input {
   }
 
   pressKey(evt) {
-    evt.preventDefault();
     let direction = KEYCODES[evt.which];
     if (!direction) { return; }
+    evt.preventDefault();
     this.pressed[direction] = true;
   }
 
   releaseKey(evt) {
-    evt.preventDefault();
     let direction = KEYCODES[evt.which];
     if (!direction) { return; }
+    evt.preventDefault();
     this.pressed[direction] = false;
   }
 }
