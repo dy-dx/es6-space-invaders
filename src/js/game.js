@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import Wall from './wall';
 import Player from './player';
 import Enemy from './enemy';
 
@@ -17,8 +18,18 @@ export default class Game {
     this.reset();
   }
 
+  makeWalls() {
+    let walls = [];
+    let wallWidth = 30;
+    walls.push( new Wall(this, wallWidth/2, this.height/2, wallWidth, this.height) );
+    walls.push( new Wall(this, this.width - wallWidth/2, this.height/2, wallWidth, this.height) );
+    return walls;
+  }
+
   reset() {
     this.children = [];
+
+    this.children.push(...this.makeWalls());
 
     for (let i = 0; i < 10; i++) {
       this.children.push(new Enemy(this, i*50 + 100, 400));
