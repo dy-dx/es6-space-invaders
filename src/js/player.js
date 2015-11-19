@@ -4,21 +4,20 @@ import Projectile from './projectile';
 
 export default class Player extends Sprite {
   constructor(parent, x, y) {
-    let attrs = {
-      x: x,
-      y: y,
-      width: 20,
-      height: 20,
-      zIndex: 100,
-      bgColor: 'blue',
-      speed: 200,
-      health: 1,
-    };
+    super(parent);
 
-    super(parent, attrs);
+    this.positionComp.x = x;
+    this.positionComp.y = y;
+
+    this.appearanceComp.width = 20;
+    this.appearanceComp.height = 20;
+    this.appearanceComp.zIndex = 100;
+    this.appearanceComp.bgColor = 'blue';
 
     this.input = new Input();
 
+    this.speed = 200;
+    this.health = 1;
     this.fireRate = 150; // ms between shots
     this.msSinceFired = Infinity;
   }

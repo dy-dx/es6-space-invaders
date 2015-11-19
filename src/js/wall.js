@@ -2,17 +2,17 @@ import Sprite from './sprite';
 
 export default class Wall extends Sprite {
   constructor(parent, x, y, width=50, height=50) {
-    let attrs = {
-      x: x,
-      y: y,
-      width: width,
-      height: height,
-      zIndex: 10,
-      bgColor: 'gray',
-      health: 1,
-    };
+    super(parent);
 
-    super(parent, attrs);
+    this.positionComp.x = x;
+    this.positionComp.y = y;
+
+    this.appearanceComp.width = width;
+    this.appearanceComp.height = height;
+    this.appearanceComp.zIndex = 10;
+    this.appearanceComp.bgColor = 'gray';
+
+    this.health = 1;
   }
 
 }

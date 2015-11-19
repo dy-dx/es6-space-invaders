@@ -1,28 +1,28 @@
 import $ from 'jquery';
 
 export default class Sprite {
-  constructor(parent, attrs) {
+  constructor(parent) {
     this.alive = true;
     this.parent = parent;
     this.children = [];
 
     this.positionComp = {
-      x: attrs.x || 0,
-      y: attrs.y || 0
+      x: 0,
+      y: 0
     };
 
     this.appearanceComp = {
       $element: $('<div>').addClass('sprite'),
-      width: attrs.width || 10,
-      height: attrs.height || 10,
-      bgColor: attrs.bgColor || 'magenta',
-      zIndex: attrs.zIndex || 1,
+      width: 10,
+      height: 10,
+      bgColor: 'magenta',
+      zIndex: 1,
     };
 
-    this.health = attrs.health || 0;
-    this.velocity = attrs.velocity || {x: 0, y: 0};
-    this.speed = attrs.speed || 0;
-    this.lifetime = attrs.lifetime || Infinity;
+    this.health = 0;
+    this.velocity = {x: 0, y: 0};
+    this.speed = 0;
+    this.lifetime = Infinity;
 
     parent.appearanceComp.$element.append(this.appearanceComp.$element);
   }

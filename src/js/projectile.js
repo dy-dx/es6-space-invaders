@@ -2,16 +2,15 @@ import Sprite from './sprite';
 
 export default class Projectile extends Sprite {
   constructor(parent, x, y, vx, vy, lifetime=2) {
-    let attrs = {
-      x: x,
-      y: y,
-      width: 6,
-      height: 10,
-      zIndex: 200,
-      bgColor: 'yellow'
-    };
+    super(parent);
 
-    super(parent, attrs);
+    this.positionComp.x = x;
+    this.positionComp.y = y;
+
+    this.appearanceComp.width = 6;
+    this.appearanceComp.height = 10;
+    this.appearanceComp.zIndex = 200;
+    this.appearanceComp.bgColor = 'yellow';
 
     this.velocity = {
       x: vx,

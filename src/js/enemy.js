@@ -2,17 +2,17 @@ import Sprite from './sprite';
 
 export default class Enemy extends Sprite {
   constructor(parent, x, y) {
-    let attrs = {
-      x: x,
-      y: y,
-      width: 20,
-      height: 20,
-      zIndex: 100,
-      bgColor: 'red',
-      health: 1,
-    };
+    super(parent);
 
-    super(parent, attrs);
+    this.positionComp.x = x;
+    this.positionComp.y = y;
+
+    this.appearanceComp.width = 20;
+    this.appearanceComp.height = 20;
+    this.appearanceComp.zIndex = 100;
+    this.appearanceComp.bgColor = 'red';
+
+    this.health = 1;
   }
 
   update(dt) {
