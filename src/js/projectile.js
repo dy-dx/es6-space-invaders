@@ -12,9 +12,11 @@ export default class Projectile extends Sprite {
     this.appearanceComp.zIndex = 200;
     this.appearanceComp.bgColor = 'yellow';
 
-    this.velocity = {
-      x: vx,
-      y: vy
+    this.physicsComp = {
+      velocity: {
+        x: vx,
+        y: vy,
+      }
     };
 
     this.lifetime = lifetime;

@@ -14,6 +14,13 @@ export default class Player extends Sprite {
     this.appearanceComp.zIndex = 100;
     this.appearanceComp.bgColor = 'blue';
 
+    this.physicsComp = {
+      velocity: {
+        x: 0,
+        y: 0,
+      }
+    };
+
     this.input = new Input();
 
     this.speed = 200;
@@ -24,19 +31,19 @@ export default class Player extends Sprite {
 
   move(dt, direction) {
     if (direction === 'left') {
-      this.velocity.x = -this.speed;
+      this.physicsComp.velocity.x = -this.speed;
     } else if (direction === 'right') {
-      this.velocity.x = this.speed;
+      this.physicsComp.velocity.x = this.speed;
     } else if (direction === 'up') {
-      this.velocity.y = this.speed;
+      this.physicsComp.velocity.y = this.speed;
     } else if (direction === 'down') {
-      this.velocity.y = -this.speed;
+      this.physicsComp.velocity.y = -this.speed;
     }
   }
 
   stop() {
-    this.velocity.x = 0;
-    this.velocity.y = 0;
+    this.physicsComp.velocity.x = 0;
+    this.physicsComp.velocity.y = 0;
   }
 
   shoot() {

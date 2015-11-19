@@ -1,5 +1,5 @@
 export default class System {
-  update(entities, dt) {
+  static update(entities, dt) {
 
   }
 

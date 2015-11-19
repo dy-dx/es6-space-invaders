@@ -4,6 +4,7 @@ import Player from './player';
 import Enemy from './enemy';
 
 import RenderSystem from './systems/render';
+import PhysicsSystem from './systems/physics';
 
 export default class Game {
   constructor(elem, width, height) {
@@ -25,6 +26,7 @@ export default class Game {
     this.children = [];
     this.player = null;
     this.systems = [
+      PhysicsSystem,
       RenderSystem,
     ];
 

@@ -20,8 +20,6 @@ export default class Sprite {
     };
 
     this.health = 0;
-    this.velocity = {x: 0, y: 0};
-    this.speed = 0;
     this.lifetime = Infinity;
 
     parent.appearanceComp.$element.append(this.appearanceComp.$element);
@@ -60,8 +58,6 @@ export default class Sprite {
     if (this.lifetime <= 0) {
       return this.destroy();
     }
-    this.positionComp.y += this.velocity.y * dt;
-    this.positionComp.x += this.velocity.x * dt;
     this.lifetime -= dt;
   }
 
