@@ -3,17 +3,30 @@ import Wall from './wall';
 import Player from './player';
 import Enemy from './enemy';
 
+import RenderSystem from './systems/render';
+
 export default class Game {
   constructor(elem, width, height) {
-    this.$element = $(elem);
     this.height = height;
     this.width = width;
 
-    this.$element.height(height);
-    this.$element.width(width);
+    this.positionComp = {
+      x: 0,
+      y: 0
+    };
+    this.appearanceComp = {
+      $element: $(elem),
+      width: this.width,
+      height: this.height,
+      'background-color': 'black',
+    };
+
 
     this.children = [];
     this.player = null;
+    this.systems = [
+      RenderSystem,
+    ];
 
     this.reset();
   }
@@ -49,5 +62,10 @@ export default class Game {
         this.children.splice(i, 1);
       }
     }
+
+    RenderSystem.update([this]);
+    this.systems.forEach(s => {
+      s.update(this.children, dt);
+    });
   }
 }

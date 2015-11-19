@@ -5,61 +5,54 @@ export default class Sprite {
     this.alive = true;
     this.parent = parent;
     this.children = [];
-    this.$element = $('<div>').addClass('sprite');
 
-    this.x = attrs.x || 0;
-    this.y = attrs.y || 0;
-    this.width = attrs.width || 10;
-    this.height = attrs.height || 10;
-    this.bgColor = attrs.bgColor || 'magenta';
+    this.positionComp = {
+      x: attrs.x || 0,
+      y: attrs.y || 0
+    };
+
+    this.appearanceComp = {
+      $element: $('<div>').addClass('sprite'),
+      width: attrs.width || 10,
+      height: attrs.height || 10,
+      bgColor: attrs.bgColor || 'magenta',
+      zIndex: attrs.zIndex || 1,
+    };
+
     this.health = attrs.health || 0;
-    this.zIndex = attrs.zIndex || 1;
-
     this.velocity = attrs.velocity || {x: 0, y: 0};
     this.speed = attrs.speed || 0;
     this.lifetime = attrs.lifetime || Infinity;
 
-    parent.$element.append(this.$element);
-    this.setPosition(this.x, this.y);
-    this.draw();
-  }
-
-  draw() {
-    this.$element.css({
-      width: `${this.width}px`,
-      height: `${this.height}px`,
-      'background-color': this.bgColor,
-      'z-index': this.zIndex,
-    });
+    parent.appearanceComp.$element.append(this.appearanceComp.$element);
   }
 
   takeDamage(damage) {
     this.health -= damage;
   }
 
-  setPosition(x, y) {
-    this.$element.css({
-      left: x,
-      bottom: y
-    });
-  }
-
   overlaps(sprite) {
     if (this === sprite) { return false; }
 
-    let bounds = this.$element.offset();
-    bounds.right = bounds.left + this.width;
-    bounds.bottom = bounds.top + this.height;
+    let bounds = {
+      left: this.positionComp.x - this.appearanceComp.width / 2,
+      top: this.positionComp.y + this.appearanceComp.height / 2,
+    };
+    bounds.right = bounds.left + this.appearanceComp.width;
+    bounds.bottom = bounds.top - this.appearanceComp.height;
 
-    let compare = sprite.$element.offset();
-    compare.right = compare.left + sprite.width;
-    compare.bottom = compare.top + sprite.height;
+    let compare = {
+      left: sprite.positionComp.x - sprite.appearanceComp.width / 2,
+      top: sprite.positionComp.y + sprite.appearanceComp.height / 2,
+    };
+    compare.right = compare.left + sprite.appearanceComp.width;
+    compare.bottom = compare.top - sprite.appearanceComp.height;
 
     return !(
       compare.right < bounds.left ||
       compare.left > bounds.right ||
-      compare.bottom < bounds.top ||
-      compare.top > bounds.bottom
+      compare.bottom > bounds.top ||
+      compare.top < bounds.bottom
     );
   }
 
@@ -67,25 +60,13 @@ export default class Sprite {
     if (this.lifetime <= 0) {
       return this.destroy();
     }
-    this.y += this.velocity.y * dt;
-    this.x += this.velocity.x * dt;
+    this.positionComp.y += this.velocity.y * dt;
+    this.positionComp.x += this.velocity.x * dt;
     this.lifetime -= dt;
-
-    this.setPosition(this.x, this.y);
-
-    // iterate backwards so we can splice
-    for (let i = this.children.length - 1; i >= 0; i--) {
-      let sprite = this.children[i];
-      if (sprite.alive) {
-        sprite.update(dt);
-      } else {
-        this.children.splice(i, 1);
-      }
-    }
   }
 
   destroy() {
-    this.$element.remove();
+    this.appearanceComp.$element.remove();
     this.alive = false;
     this.parent = null;
     this.children.forEach(sprite => {

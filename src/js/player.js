@@ -48,7 +48,9 @@ export default class Player extends Sprite {
   }
 
   spawnBullet() {
-    this.parent.children.push(new Projectile(this.parent, this.x, this.y + this.height, 0, 500, 1));
+    this.parent.children.push(
+      new Projectile(this.parent, this.positionComp.x, this.positionComp.y + this.appearanceComp.height, 0, 500, 1)
+    );
   }
 
   update(dt) {
