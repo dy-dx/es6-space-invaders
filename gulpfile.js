@@ -3,7 +3,7 @@ var watchify = require('watchify');
 var browserify = require('browserify');
 var browserSync = require('browser-sync');
 var source = require('vinyl-source-stream');
-var jade = require('gulp-jade');
+var pug = require('gulp-pug');
 var sass = require('gulp-sass');
 var notify = require('gulp-notify');
 var babelify = require('babelify');
@@ -38,16 +38,16 @@ gulp.task('sass', function() {
     }));
 });
 
-gulp.task('jade', function() {
-  return gulp.src('./src/*.jade')
-    .pipe(jade({
+gulp.task('pug', function() {
+  return gulp.src('./src/*.pug')
+    .pipe(pug({
       pretty: true
     }))
     .on('error', notify.onError('<%= error.message %>'))
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('watch', ['sass', 'jade'], function() {
+gulp.task('watch', ['sass', 'pug'], function() {
   var bundler = watchify(browserify('./src/js/index.js', watchify.args));
   bundler.transform(babelify, babelOptions);
 
@@ -64,14 +64,14 @@ gulp.task('watch', ['sass', 'jade'], function() {
   });
 
   gulp.watch(['src/**/*.scss'], ['sass']);
-  gulp.watch(['src/**/*.jade'], ['jade']);
+  gulp.watch(['src/**/*.pug'], ['pug']);
   gulp.watch(['src/img/**/*'], browserSync.reload);
   gulp.watch(['dist/*.!(css)'], browserSync.reload);
 
   return bundle(bundler);
 });
 
-gulp.task('build', ['sass', 'jade'], function () {
+gulp.task('build', ['sass', 'pug'], function () {
   var bundler = browserify('./src/js/index.js');
   bundler.transform(babelify, babelOptions);
   return bundle(bundler);
