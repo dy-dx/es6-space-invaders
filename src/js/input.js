@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $ from 'cash-dom';
 
 const KEYCODES = {
   32: 'space',

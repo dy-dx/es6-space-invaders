@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $ from 'cash-dom';
 import Wall from './wall';
 import Player from './player';
 import Enemy from './enemy';

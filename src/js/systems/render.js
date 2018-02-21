@@ -6,8 +6,8 @@ export default class RenderSystem extends System {
     .filter(e => e.appearanceComp)
     .map(e => {
       e.appearanceComp.$element.css({
-        left: e.positionComp.x || 0,
-        bottom: e.positionComp.y || 0,
+        left: `${e.positionComp.x}px`,
+        bottom: `${e.positionComp.y}px`,
         // todo: cache these?
         width: `${e.appearanceComp.width}px`,
         height: `${e.appearanceComp.height}px`,
