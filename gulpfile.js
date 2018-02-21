@@ -8,6 +8,19 @@ var sass = require('gulp-sass');
 var notify = require('gulp-notify');
 var babelify = require('babelify');
 
+var babelOptions = {
+  presets: [
+    ['env', {
+      targets: {browsers: [
+        'last 2 chrome versions',
+        'last 2 firefox versions',
+        'last 2 safari versions',
+        'not safari < 11',
+      ]}
+    }]
+  ]
+};
+
 function bundle (bundler) {
   return bundler.bundle()
     .on('error', notify.onError('<%= error.message %>'))
@@ -36,7 +49,7 @@ gulp.task('jade', function() {
 
 gulp.task('watch', ['sass', 'jade'], function() {
   var bundler = watchify(browserify('./src/js/index.js', watchify.args));
-  bundler.transform(babelify, {presets: ["es2015", "react"]});
+  bundler.transform(babelify, babelOptions);
 
   bundler.on('update', function () { return bundle(bundler); });
 
@@ -60,7 +73,7 @@ gulp.task('watch', ['sass', 'jade'], function() {
 
 gulp.task('build', ['sass', 'jade'], function () {
   var bundler = browserify('./src/js/index.js');
-  bundler.transform(babelify, {presets: ["es2015", "react"]});
+  bundler.transform(babelify, babelOptions);
   return bundle(bundler);
 });
 
