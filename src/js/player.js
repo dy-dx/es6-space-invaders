@@ -9,21 +9,22 @@ export default class Player extends Sprite {
     this.positionComp.x = x;
     this.positionComp.y = y;
 
-    this.appearanceComp.width = 20;
-    this.appearanceComp.height = 20;
+    this.physicsComp = Object.assign(this.physicsComp, {
+      width: 20,
+      height: 20,
+      collision: {
+        type: 'moveable'
+      },
+    });
+
+    this.appearanceComp.width = this.physicsComp.width;
+    this.appearanceComp.height = this.physicsComp.height;
     this.appearanceComp.zIndex = 100;
     this.appearanceComp.bgColor = 'blue';
 
-    this.physicsComp = {
-      velocity: {
-        x: 0,
-        y: 0,
-      }
-    };
-
     this.input = new Input();
 
-    this.speed = 200;
+    this.speed = 300;
     this.health = 1;
     this.fireRate = 150; // ms between shots
     this.msSinceFired = Infinity;
@@ -55,7 +56,7 @@ export default class Player extends Sprite {
 
   spawnBullet() {
     this.parent.children.push(
-      new Projectile(this.parent, this.positionComp.x, this.positionComp.y + this.appearanceComp.height, 0, 500, 1)
+      new Projectile(this.parent, this.positionComp.x, this.positionComp.y + this.physicsComp.height, 0, 500, 1)
     );
   }
 

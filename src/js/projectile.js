@@ -7,17 +7,19 @@ export default class Projectile extends Sprite {
     this.positionComp.x = x;
     this.positionComp.y = y;
 
-    this.appearanceComp.width = 6;
-    this.appearanceComp.height = 10;
-    this.appearanceComp.zIndex = 200;
-    this.appearanceComp.bgColor = 'yellow';
-
-    this.physicsComp = {
+    this.physicsComp = Object.assign(this.physicsComp, {
+      width: 6,
+      height: 10,
       velocity: {
         x: vx,
         y: vy,
       }
-    };
+    });
+
+    this.appearanceComp.width = this.physicsComp.width;
+    this.appearanceComp.height = this.physicsComp.height;
+    this.appearanceComp.zIndex = 200;
+    this.appearanceComp.bgColor = 'yellow';
 
     this.lifetime = lifetime;
   }

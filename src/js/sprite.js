@@ -11,10 +11,19 @@ export default class Sprite {
       y: 0
     };
 
-    this.appearanceComp = {
-      $element: $('<div>').addClass('sprite'),
+    this.physicsComp = {
       width: 10,
       height: 10,
+      velocity: {
+        x: 0,
+        y: 0,
+      },
+    };
+
+    this.appearanceComp = {
+      $element: $('<div>').addClass('sprite'),
+      width: this.physicsComp.width,
+      height: this.physicsComp.height,
       bgColor: 'magenta',
       zIndex: 1,
     };
@@ -33,18 +42,18 @@ export default class Sprite {
     if (this === sprite) { return false; }
 
     let bounds = {
-      left: this.positionComp.x - this.appearanceComp.width / 2,
-      top: this.positionComp.y + this.appearanceComp.height / 2,
+      left: this.positionComp.x - this.physicsComp.width / 2,
+      top: this.positionComp.y + this.physicsComp.height / 2,
     };
-    bounds.right = bounds.left + this.appearanceComp.width;
-    bounds.bottom = bounds.top - this.appearanceComp.height;
+    bounds.right = bounds.left + this.physicsComp.width;
+    bounds.bottom = bounds.top - this.physicsComp.height;
 
     let compare = {
-      left: sprite.positionComp.x - sprite.appearanceComp.width / 2,
-      top: sprite.positionComp.y + sprite.appearanceComp.height / 2,
+      left: sprite.positionComp.x - sprite.physicsComp.width / 2,
+      top: sprite.positionComp.y + sprite.physicsComp.height / 2,
     };
-    compare.right = compare.left + sprite.appearanceComp.width;
-    compare.bottom = compare.top - sprite.appearanceComp.height;
+    compare.right = compare.left + sprite.physicsComp.width;
+    compare.bottom = compare.top - sprite.physicsComp.height;
 
     return !(
       compare.right < bounds.left ||

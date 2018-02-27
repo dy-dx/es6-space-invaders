@@ -7,8 +7,13 @@ export default class Enemy extends Sprite {
     this.positionComp.x = x;
     this.positionComp.y = y;
 
-    this.appearanceComp.width = 20;
-    this.appearanceComp.height = 20;
+    this.physicsComp = Object.assign(this.physicsComp, {
+      width: 20,
+      height: 20,
+    });
+
+    this.appearanceComp.width = this.physicsComp.width;
+    this.appearanceComp.height = this.physicsComp.height;
     this.appearanceComp.zIndex = 100;
     this.appearanceComp.bgColor = 'red';
 

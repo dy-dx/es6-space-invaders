@@ -7,8 +7,16 @@ export default class Wall extends Sprite {
     this.positionComp.x = x;
     this.positionComp.y = y;
 
-    this.appearanceComp.width = width;
-    this.appearanceComp.height = height;
+    this.physicsComp = Object.assign(this.physicsComp, {
+      width,
+      height,
+      collision: {
+        type: 'static'
+      },
+    });
+
+    this.appearanceComp.width = this.physicsComp.width;
+    this.appearanceComp.height = this.physicsComp.height;
     this.appearanceComp.zIndex = 10;
     this.appearanceComp.bgColor = 'gray';
 
