@@ -4,7 +4,7 @@ export default class PhysicsSystem extends System {
   static update(entities, dt) {
     const physicsEntities = entities.filter(e => e.physicsComp);
 
-    physicsEntities.map(e => {
+    physicsEntities.forEach(e => {
       const p = e.positionComp;
       const c = e.physicsComp.collision;
       const v = e.physicsComp.velocity;
@@ -43,5 +43,4 @@ export default class PhysicsSystem extends System {
       }
     });
   }
-
 }

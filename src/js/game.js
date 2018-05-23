@@ -13,7 +13,7 @@ export default class Game {
 
     this.positionComp = {
       x: 0,
-      y: 0
+      y: 0,
     };
     this.appearanceComp = {
       $element: $(elem),
@@ -36,8 +36,8 @@ export default class Game {
   makeWalls() {
     let walls = [];
     let wallWidth = 30;
-    walls.push( new Wall(this, wallWidth/2, this.height/2, wallWidth, this.height) );
-    walls.push( new Wall(this, this.width - wallWidth/2, this.height/2, wallWidth, this.height) );
+    walls.push(new Wall(this, wallWidth/2, this.height/2, wallWidth, this.height));
+    walls.push(new Wall(this, this.width - wallWidth/2, this.height/2, wallWidth, this.height));
     return walls;
   }
 

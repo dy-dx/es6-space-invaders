@@ -11,7 +11,7 @@ export default class Wall extends Sprite {
       width,
       height,
       collision: {
-        type: 'static'
+        type: 'static',
       },
     });
 
@@ -22,5 +22,4 @@ export default class Wall extends Sprite {
 
     this.health = 1;
   }
-
 }

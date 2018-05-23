@@ -5,7 +5,7 @@ const KEYCODES = {
   37: 'left',
   38: 'up',
   39: 'right',
-  40: 'down'
+  40: 'down',
 };
 
 export default class Input {
@@ -15,7 +15,7 @@ export default class Input {
       left: false,
       up: false,
       right: false,
-      down: false
+      down: false,
     };
 
     $(document).on('keydown', this.pressKey.bind(this));

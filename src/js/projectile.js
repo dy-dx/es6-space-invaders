@@ -13,7 +13,7 @@ export default class Projectile extends Sprite {
       velocity: {
         x: vx,
         y: vy,
-      }
+      },
     });
 
     this.appearanceComp.width = this.physicsComp.width;

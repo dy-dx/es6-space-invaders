@@ -8,7 +8,7 @@ export default class Sprite {
 
     this.positionComp = {
       x: 0,
-      y: 0
+      y: 0,
     };
 
     this.physicsComp = {
@@ -65,7 +65,8 @@ export default class Sprite {
 
   update(dt) {
     if (this.lifetime <= 0) {
-      return this.destroy();
+      this.destroy();
+      return;
     }
     this.lifetime -= dt;
   }

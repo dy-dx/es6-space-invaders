@@ -1,8 +1,0 @@
-{
-  "boss"        : true
-, "laxcomma"    : true
-, "eqnull"      : true
-, "node"        : true
-, "browserify"  : true
-, "esnext"      : true
-}

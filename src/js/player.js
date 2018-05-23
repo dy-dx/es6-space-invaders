@@ -13,7 +13,7 @@ export default class Player extends Sprite {
       width: 20,
       height: 20,
       collision: {
-        type: 'moveable'
+        type: 'moveable',
       },
     });
 
@@ -55,9 +55,14 @@ export default class Player extends Sprite {
   }
 
   spawnBullet() {
-    this.parent.children.push(
-      new Projectile(this.parent, this.positionComp.x, this.positionComp.y + this.physicsComp.height, 0, 500, 1)
-    );
+    this.parent.children.push(new Projectile(
+      this.parent,
+      this.positionComp.x,
+      this.positionComp.y + this.physicsComp.height,
+      0,
+      500,
+      1
+    ));
   }
 
   update(dt) {
