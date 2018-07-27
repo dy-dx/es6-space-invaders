@@ -56,10 +56,10 @@ export default class Sprite {
     compare.bottom = compare.top - sprite.physicsComp.height;
 
     return !(
-      compare.right < bounds.left ||
-      compare.left > bounds.right ||
-      compare.bottom > bounds.top ||
-      compare.top < bounds.bottom
+      compare.right < bounds.left
+      || compare.left > bounds.right
+      || compare.bottom > bounds.top
+      || compare.top < bounds.bottom
     );
   }
 
